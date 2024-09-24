@@ -1,0 +1,10 @@
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.203","timestamp":"2024-09-23T17:47:28.497561075"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.194","timestamp":"2024-09-23T17:47:38.063143581"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.42","timestamp":"2024-09-23T17:47:50.155988146"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.203","timestamp":"2024-09-23T17:48:28.440292969"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.194","timestamp":"2024-09-23T17:48:38.064133787"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.42","timestamp":"2024-09-23T17:48:50.152951508"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.203","timestamp":"2024-09-23T17:49:28.345223058"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.194","timestamp":"2024-09-23T17:49:38.073910159"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.42","timestamp":"2024-09-23T17:49:50.154603622"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.168","timestamp":"2024-09-23T17:50:26.919334781"}

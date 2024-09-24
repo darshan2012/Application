@@ -1,0 +1,10 @@
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.42","timestamp":"2024-09-23T17:52:02.981498341"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.10","timestamp":"2024-09-23T17:52:11.995969204"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.13","timestamp":"2024-09-23T17:52:25.585821686"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.168","timestamp":"2024-09-23T17:52:34.717181679"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.203","timestamp":"2024-09-23T17:52:43.929635860"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.15","timestamp":"2024-09-23T17:52:52.943957431"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.5","timestamp":"2024-09-23T17:53:01.959976022"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.194","timestamp":"2024-09-23T17:53:11.069321891"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.16","timestamp":"2024-09-23T17:53:20.085517718"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.42","timestamp":"2024-09-23T17:53:29.105941175"}
