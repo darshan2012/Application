@@ -229,7 +229,7 @@ public class Main
         vertx.executeBlocking(() ->
         {
             vertx.fileSystem()
-                    .open(baseDir + fileName, new OpenOptions().setCreate(true).setAppend(true))
+                    .open(baseDir + "/" + fileName, new OpenOptions().setCreate(true).setAppend(true))
                     .onComplete(result ->
                     {
                         if (result.succeeded())
