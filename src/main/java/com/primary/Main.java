@@ -3,6 +3,8 @@ package com.primary;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.file.OpenOptions;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
@@ -27,114 +29,161 @@ public class Main
 
     public static Integer pingPort;
 
-    private static final int MAX_EVENTS = 10;
-
     private static final ZContext context = new ZContext();
 
     public static void main(String[] args)
     {
-        vertx.fileSystem().readFile("config.json").compose(result ->
-                {
-                    try
+        try
+        {
+            vertx.fileSystem().readFile("config.json").compose(result ->
                     {
-                        JsonObject config = result.toJsonObject();
-                        port = config.getInteger("port");
-                        pingPort = config.getInteger("pingPort");
-                        logger.info("Configuration loaded: {}", config.encodePrettily());
-                        return Future.succeededFuture(config);
-                    }
-                    catch (Exception exception)
+                        try
+                        {
+                            JsonObject config = result.toJsonObject();
+
+                            port = config.getInteger("port");
+
+                            pingPort = config.getInteger("pingPort");
+
+                            logger.info("Configuration loaded: {}", config.encodePrettily());
+
+                            return Future.succeededFuture(config);
+                        }
+                        catch (Exception exception)
+                        {
+                            logger.error("Failed to load configuration: {}", exception.getMessage());
+
+                            return Future.failedFuture(exception);
+                        }
+                    }).compose(config -> notifyMainServer((JsonObject) config))
+                    .onComplete(result ->
                     {
-                        logger.error("Failed to load configuration: {}", exception.getMessage());
-                        return Future.failedFuture(exception);
-                    }
-                }).compose(config -> notifyMainServer((JsonObject) config))
-                .onComplete(result ->
-                {
-                    if (result.succeeded())
-                    {
-                        startEventReceiver();
-                    }
-                    else
-                    {
-                        logger.error("Failed to notify main server: {}", result.cause().getMessage());
-                    }
-                });
+                        if (result.succeeded())
+                        {
+                            startEventReceiver();
+                        }
+                        else
+                        {
+                            logger.error("Failed to notify main server: {}", result.cause().getMessage());
+                        }
+                    });
+        }
+        catch (Exception exception)
+        {
+            logger.error(exception.getMessage(), exception);
+        }
     }
 
     private static Future<Void> notifyMainServer(JsonObject appContext)
     {
         Promise<Void> promise = Promise.promise();
+
         vertx.createHttpClient().request(HttpMethod.POST, 8080, "localhost", "/register")
                 .onComplete(result ->
                 {
-                    if (result.succeeded())
+                    try
                     {
-                        HttpClientRequest request = result.result();
-                        request.response().onComplete(requestResult ->
+                        if (result.succeeded())
                         {
-                            if (requestResult.succeeded())
+                            HttpClientRequest request = result.result();
+
+                            request.response().onComplete(requestResult ->
                             {
-                                HttpClientResponse response = requestResult.result();
-                                logger.info("Response status: {}", response.statusCode());
-                                if (response.statusCode() == 200)
+                                if (requestResult.succeeded())
                                 {
-                                    promise.complete();
+                                    HttpClientResponse response = requestResult.result();
+
+                                    logger.info("Response status: {}", response.statusCode());
+
+                                    if (response.statusCode() == 200)
+                                    {
+                                        promise.complete();
+                                    }
+                                    else
+                                    {
+                                        promise.fail("Could not register, status code: " + response.statusCode());
+                                    }
                                 }
                                 else
                                 {
-                                    promise.fail("Could not register, status code: " + response.statusCode());
-                                }
-                            }
-                            else
-                            {
-                                logger.error("Failed to get response: {}", requestResult.cause().getMessage());
-                                promise.fail("Could not register");
-                            }
-                        });
+                                    logger.error("Failed to get response: {}", requestResult.cause().getMessage());
 
-                        request.putHeader("content-type", "application/json");
-                        request.idleTimeout(3000);
-                        request.end(appContext.encode());
+                                    promise.fail("Could not register");
+                                }
+                            });
+
+                            request.putHeader("content-type", "application/json");
+
+                            request.idleTimeout(3000);
+
+                            request.end(appContext.encode());
+                        }
+                        else
+                        {
+                            logger.error("Failed to send request to main server: {}", result.cause().getMessage());
+
+                            promise.fail("Could not register");
+                        }
                     }
-                    else
+                    catch (Exception exception)
                     {
-                        logger.error("Failed to send request to main server: {}", result.cause().getMessage());
-                        promise.fail("Could not register");
+                        logger.error(exception.getMessage(), exception);
                     }
+
                 });
         return promise.future();
     }
 
     private static void startEventReceiver()
     {
-        new Thread(() -> {
+        new Thread(() ->
+        {
             try
             {
                 ZMQ.Socket pullSocket = context.createSocket(SocketType.PULL);
+
                 pullSocket.bind("tcp://*:" + port); // Bind to a port
 
-                int eventCount = 0;
                 StringBuilder eventBuffer = new StringBuilder();
+
+                String fileName = "default.txt";
+
+                logger.info("Started listening on port: " + port);
 
                 while (!Thread.currentThread().isInterrupted())
                 {
-                    String event = pullSocket.recvStr(0);
-                    if (event != null)
-                    {
-                        eventBuffer.append(event).append("\n");
-                        eventCount++;
+                    String event = pullSocket.recvStr();
 
-                        if (eventCount >= MAX_EVENTS)
+                    if (event != null && !event.isEmpty())
+                    {
+                        logger.info("Received event: " + event);
+
+                        String[] splitEvent = event.split("\\s+", 2);
+
+                        if (splitEvent[0].equals("filename"))
                         {
-                            writeEventsToFile(eventBuffer.toString());
-                            eventBuffer.setLength(0); // Clear the buffer
-                            eventCount = 0; // Reset the event count
+                            fileName = splitEvent[1];
+                        }
+                        else if (event.equals("completed"))
+                        {
+                            writeEvents(fileName, eventBuffer.toString());
+
+                            eventBuffer.setLength(0);
+                        }
+                        else
+                        {
+                            eventBuffer.append(event).append("\n");
                         }
                     }
                 }
 
+                if (!eventBuffer.isEmpty())
+                {
+                    writeEvents(fileName, eventBuffer.toString());
+                }
+
                 pullSocket.close();
+
             }
             catch (Exception e)
             {
@@ -142,24 +191,27 @@ public class Main
             }
         }).start();
 
-        new Thread(() -> {
+        new Thread(() ->
+        {
             try
             {
-                System.out.println("here");
-                ZMQ.Socket pingSocket = context.createSocket(SocketType.REP);
-                pingSocket.bind("tcp://*:" + pingPort); // Bind to the pong port
+                ZMQ.Socket pingSocket = context.createSocket(SocketType.PUSH);
+
+                pingSocket.bind("tcp://*:" + pingPort);
 
                 while (!Thread.currentThread().isInterrupted())
                 {
-                    // Wait for a ping message
-                    String message = pingSocket.recvStr();
-                    if ("ping".equals(message))
+                    try
                     {
-                        logger.info("Received " + message + ", sending pong.");
                         pingSocket.send("pong");
+
+                        Thread.sleep(3000);
+                    }
+                    catch (Exception exception)
+                    {
+                        logger.error("Error while sending pong :", exception);
                     }
                 }
-                pingSocket.close();
             }
             catch (Exception e)
             {
@@ -168,17 +220,35 @@ public class Main
         }).start();
     }
 
-    private static void writeEventsToFile(String events)
+    private static void writeEvents(String fileName, String eventsBatch)
     {
-        String fileName = "events/event_data_" + System.currentTimeMillis() + ".txt"; // New file name with timestamp
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName)))
-        {
-            writer.write(events);
-            logger.info("Events written to file: {}", fileName);
-        }
-        catch (IOException e)
-        {
-            logger.error("Error writing events to file: ", e);
-        }
+        vertx.fileSystem()
+                .open(fileName, new OpenOptions().setCreate(true).setAppend(true))
+                .onComplete(result ->
+                {
+                    if (result.succeeded())
+                    {
+                        var file = result.result();
+
+                        file.write(Buffer.buffer(eventsBatch))
+                                .onComplete(writeResult ->
+                                {
+                                    if (writeResult.succeeded())
+                                    {
+                                        logger.info("Flushed events to file: {}", fileName);
+
+                                        file.close();
+                                    }
+                                    else
+                                    {
+                                        logger.error("Failed to write events to file: {}", writeResult.cause());
+                                    }
+                                });
+                    }
+                    else
+                    {
+                        logger.error("Failed to open file for writing: {}", result.cause());
+                    }
+                });
     }
 }

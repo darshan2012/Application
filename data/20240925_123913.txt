@@ -1,0 +1,7 @@
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.182","timestamp":"2024-09-25T12:41:06.357655678"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.177","timestamp":"2024-09-25T12:41:15.381175525"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.182","timestamp":"2024-09-25T12:41:06.357655678"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.177","timestamp":"2024-09-25T12:41:15.381175525"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.42","timestamp":"2024-09-25T12:41:24.401543602"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.5","timestamp":"2024-09-25T12:41:33.419770748"}
+{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.203","timestamp":"2024-09-25T12:41:42.496933691"}
