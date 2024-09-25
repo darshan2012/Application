@@ -15,10 +15,6 @@ import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Main
 {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -29,7 +25,9 @@ public class Main
 
     public static Integer pingPort;
 
-    public static String baseDir;
+    public static final String BASE_DIR = System.clearProperty("user.dir") + "/data";
+
+    private static String applicationType;
 
     private static final ZContext context = new ZContext();
 
@@ -43,7 +41,7 @@ public class Main
                         {
                             JsonObject config = result.toJsonObject();
 
-                            baseDir = config.getString("type").toLowerCase();
+                            applicationType = config.getString("type").toLowerCase();
 
                             port = config.getInteger("port");
 
@@ -59,7 +57,7 @@ public class Main
 
                             return Future.failedFuture(exception);
                         }
-                    }).compose(config -> notifyMainServer((JsonObject) config))
+                    }).compose(Main::notifyMainServer)
                     .onComplete(result ->
                     {
                         if (result.succeeded())
@@ -152,7 +150,7 @@ public class Main
 
                 var fileName = "default.txt";
 
-                logger.info("Started listening on port: " + port);
+                logger.info("Started listening on port: {}", port);
 
                 while (!Thread.currentThread().isInterrupted())
                 {
@@ -160,7 +158,7 @@ public class Main
 
                     if (event != null && !event.isEmpty())
                     {
-                        logger.info("Received event: " + event);
+                        logger.info("Received event: {}", event);
 
                         String[] splitEvent = event.split("\\s+", 2);
 
@@ -229,7 +227,7 @@ public class Main
         vertx.executeBlocking(() ->
         {
             vertx.fileSystem()
-                    .open(baseDir + "/" + fileName, new OpenOptions().setCreate(true).setAppend(true))
+                    .open(BASE_DIR + "/" + applicationType + fileName, new OpenOptions().setCreate(true).setAppend(true))
                     .onComplete(result ->
                     {
                         if (result.succeeded())
@@ -247,13 +245,13 @@ public class Main
                                         }
                                         else
                                         {
-                                            logger.error("Failed to write events to file: {}", writeResult.cause());
+                                            logger.error("Failed to write events to file: ", writeResult.cause());
                                         }
                                     });
                         }
                         else
                         {
-                            logger.error("Failed to open file for writing: {}", result.cause());
+                            logger.error("Failed to open file for writing: ", result.cause());
                         }
                     });
             return Future.succeededFuture();
