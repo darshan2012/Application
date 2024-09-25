@@ -4,6 +4,11 @@ target/
 !**/src/test/**/target/
 
 /events
+/failover
+/data
+/logs
+/primary
+/secondary
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml

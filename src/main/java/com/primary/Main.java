@@ -29,6 +29,8 @@ public class Main
 
     public static Integer pingPort;
 
+    public static String baseDir;
+
     private static final ZContext context = new ZContext();
 
     public static void main(String[] args)
@@ -40,6 +42,8 @@ public class Main
                         try
                         {
                             JsonObject config = result.toJsonObject();
+
+                            baseDir = config.getString("type").toLowerCase();
 
                             port = config.getInteger("port");
 
@@ -223,7 +227,7 @@ public class Main
     private static void writeEvents(String fileName, String eventsBatch)
     {
         vertx.fileSystem()
-                .open(fileName, new OpenOptions().setCreate(true).setAppend(true))
+                .open(baseDir + fileName, new OpenOptions().setCreate(true).setAppend(true))
                 .onComplete(result ->
                 {
                     if (result.succeeded())
