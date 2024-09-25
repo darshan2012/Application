@@ -10582,3 +10582,35 @@ io.vertx.core.VertxException: Thread blocked
 2024-09-25 12:51:56.964 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: data/20240925_123923.txt
 2024-09-25 12:51:56.966 [Thread-2] INFO  com.primary.Main - Received event: completed
 2024-09-25 12:51:56.970 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: data/20240925_123933.txt
+2024-09-25 15:09:33.678 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "Secondary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-25 15:09:33.935 [vert.x-eventloop-thread-0] ERROR com.primary.Main - Failed to send request to main server: Connection refused: localhost/127.0.0.1:8080
+2024-09-25 15:09:33.945 [vert.x-eventloop-thread-0] ERROR com.primary.Main - Failed to notify main server: Could not register
+2024-09-25 15:34:45.571 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "Secondary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-25 15:34:46.093 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Response status: 200
+2024-09-25 15:34:46.217 [Thread-2] INFO  com.primary.Main - Started listening on port: 5555
+2024-09-25 18:11:28.050 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "Secondary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-25 18:11:28.310 [vert.x-eventloop-thread-0] ERROR com.primary.Main - Failed to send request to main server: Connection refused: localhost/127.0.0.1:8080
+2024-09-25 18:11:28.311 [vert.x-eventloop-thread-0] ERROR com.primary.Main - Failed to notify main server: Could not register
+2024-09-25 18:11:43.784 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "Secondary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-25 18:11:44.327 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Response status: 200
+2024-09-25 18:11:44.389 [Thread-2] INFO  com.primary.Main - Started listening on port: 5555

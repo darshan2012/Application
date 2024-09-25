@@ -146,17 +146,17 @@ public class Main
             {
                 ZMQ.Socket pullSocket = context.createSocket(SocketType.PULL);
 
-                pullSocket.bind("tcp://*:" + port); // Bind to a port
+                pullSocket.bind("tcp://*:" + port);
 
-                StringBuilder eventBuffer = new StringBuilder();
+                var eventBuffer = new StringBuilder();
 
-                String fileName = "default.txt";
+                var fileName = "default.txt";
 
                 logger.info("Started listening on port: " + port);
 
                 while (!Thread.currentThread().isInterrupted())
                 {
-                    String event = pullSocket.recvStr();
+                    var event = pullSocket.recvStr();
 
                     if (event != null && !event.isEmpty())
                     {
@@ -189,9 +189,9 @@ public class Main
                 pullSocket.close();
 
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                logger.error("Error in event receiver: ", e);
+                logger.error("Error in event receiver: ", exception);
             }
         }).start();
 
@@ -199,7 +199,7 @@ public class Main
         {
             try
             {
-                ZMQ.Socket pingSocket = context.createSocket(SocketType.PUSH);
+                var pingSocket = context.createSocket(SocketType.PUSH);
 
                 pingSocket.bind("tcp://*:" + pingPort);
 
@@ -217,42 +217,47 @@ public class Main
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                logger.error("Error in ping-pong thread: ", e);
+                logger.error("Error in ping-pong thread: ", exception);
             }
         }).start();
     }
 
     private static void writeEvents(String fileName, String eventsBatch)
     {
-        vertx.fileSystem()
-                .open(baseDir + fileName, new OpenOptions().setCreate(true).setAppend(true))
-                .onComplete(result ->
-                {
-                    if (result.succeeded())
+        vertx.executeBlocking(() ->
+        {
+            vertx.fileSystem()
+                    .open(baseDir + fileName, new OpenOptions().setCreate(true).setAppend(true))
+                    .onComplete(result ->
                     {
-                        var file = result.result();
+                        if (result.succeeded())
+                        {
+                            var file = result.result();
 
-                        file.write(Buffer.buffer(eventsBatch))
-                                .onComplete(writeResult ->
-                                {
-                                    if (writeResult.succeeded())
+                            file.write(Buffer.buffer(eventsBatch))
+                                    .onComplete(writeResult ->
                                     {
-                                        logger.info("Flushed events to file: {}", fileName);
+                                        if (writeResult.succeeded())
+                                        {
+                                            logger.info("Flushed events to file: {}", fileName);
 
-                                        file.close();
-                                    }
-                                    else
-                                    {
-                                        logger.error("Failed to write events to file: {}", writeResult.cause());
-                                    }
-                                });
-                    }
-                    else
-                    {
-                        logger.error("Failed to open file for writing: {}", result.cause());
-                    }
-                });
+                                            file.close();
+                                        }
+                                        else
+                                        {
+                                            logger.error("Failed to write events to file: {}", writeResult.cause());
+                                        }
+                                    });
+                        }
+                        else
+                        {
+                            logger.error("Failed to open file for writing: {}", result.cause());
+                        }
+                    });
+            return Future.succeededFuture();
+        });
+
     }
 }
