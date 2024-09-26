@@ -89,13 +89,13 @@ public class Main
                     {
                         if (result.succeeded())
                         {
-                            HttpClientRequest request = result.result();
+                            var request = result.result();
 
                             request.response().onComplete(requestResult ->
                             {
                                 if (requestResult.succeeded())
                                 {
-                                    HttpClientResponse response = requestResult.result();
+                                    var response = requestResult.result();
 
                                     logger.info("Response status: {}", response.statusCode());
 
@@ -162,7 +162,7 @@ public class Main
                     {
                         logger.info("Received event: {}", event);
 
-                        String[] splitEvent = event.split("\\s+", 2);
+                        var splitEvent = event.split("\\s+", 2);
 
                         if (splitEvent[0].equals("filename"))
                         {
