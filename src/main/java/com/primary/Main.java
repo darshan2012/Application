@@ -229,32 +229,41 @@ public class Main
         vertx.executeBlocking(() ->
         {
             vertx.fileSystem()
-                    .open(BASE_DIR + "/" + applicationType + "/" + fileName, new OpenOptions().setCreate(true).setAppend(true))
+                    .open(BASE_DIR + "/" + applicationType + "/" + fileName,
+                            new OpenOptions().setCreate(true).setAppend(true))
                     .onComplete(result ->
                     {
-                        if (result.succeeded())
+                        try
                         {
-                            var file = result.result();
+                            if (result.succeeded())
+                            {
+                                var file = result.result();
 
-                            file.write(Buffer.buffer(eventsBatch))
-                                    .onComplete(writeResult ->
-                                    {
-                                        if (writeResult.succeeded())
+                                file.write(Buffer.buffer(eventsBatch))
+                                        .onComplete(writeResult ->
                                         {
-                                            logger.info("Flushed events to file: {}", fileName);
+                                            if (writeResult.succeeded())
+                                            {
+                                                logger.info("Flushed events to file: {}", fileName);
 
-                                            file.close();
-                                        }
-                                        else
-                                        {
-                                            logger.error("Failed to write events to file: ", writeResult.cause());
-                                        }
-                                    });
+                                                file.close();
+                                            }
+                                            else
+                                            {
+                                                logger.error("Failed to write events to file: ", writeResult.cause());
+                                            }
+                                        });
+                            }
+                            else
+                            {
+                                logger.error("Failed to open file for writing: ", result.cause());
+                            }
                         }
-                        else
+                        catch (Exception exception)
                         {
-                            logger.error("Failed to open file for writing: ", result.cause());
+                            logger.error(exception.getMessage(), exception);
                         }
+
                     });
             return Future.succeededFuture();
         });
