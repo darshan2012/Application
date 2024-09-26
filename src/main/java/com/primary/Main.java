@@ -35,7 +35,6 @@ public class Main
     {
         try
         {
-
             vertx.fileSystem().readFile("config.json").compose(result ->
                     {
                         try
@@ -230,7 +229,7 @@ public class Main
         vertx.executeBlocking(() ->
         {
             vertx.fileSystem()
-                    .open(BASE_DIR + "/" + applicationType + fileName, new OpenOptions().setCreate(true).setAppend(true))
+                    .open(BASE_DIR + "/" + applicationType + "/" + fileName, new OpenOptions().setCreate(true).setAppend(true))
                     .onComplete(result ->
                     {
                         if (result.succeeded())

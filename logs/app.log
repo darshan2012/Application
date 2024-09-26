@@ -1,0 +1,175 @@
+2024-09-26 10:57:51.264 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "Primary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-26 10:57:51.900 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Response status: 200
+2024-09-26 10:57:51.972 [Thread-2] INFO  com.primary.Main - Started listening on port: 5555
+2024-09-26 11:01:24.376 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "Primary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-26 11:01:24.960 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Response status: 200
+2024-09-26 11:01:25.015 [Thread-2] INFO  com.primary.Main - Started listening on port: 5555
+2024-09-26 11:07:07.613 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Configuration loaded: {
+  "type" : "secondary",
+  "ip" : "127.0.0.1",
+  "port" : 5555,
+  "pingPort" : 4444
+}
+2024-09-26 11:07:07.996 [vert.x-eventloop-thread-0] INFO  com.primary.Main - Response status: 200
+2024-09-26 11:07:08.034 [Thread-2] INFO  com.primary.Main - Started listening on port: 5555
+2024-09-26 11:11:24.976 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110227.txt
+2024-09-26 11:11:24.980 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.12","Average latency":"5.75","Maximum latency":"9.61"}
+2024-09-26 11:11:24.981 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:24.984 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110237.txt
+2024-09-26 11:11:24.985 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.57","Average latency":"3.55","Maximum latency":"5.61"}
+2024-09-26 11:11:24.988 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.56","Average latency":"3.42","Maximum latency":"5.85"}
+2024-09-26 11:11:24.990 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:24.994 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110247.txt
+2024-09-26 11:11:24.995 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.64","Average latency":"6.80","Maximum latency":"9.46"}
+2024-09-26 11:11:24.996 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.61","Average latency":"3.88","Maximum latency":"6.35"}
+2024-09-26 11:11:24.997 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.27","Average latency":"5.18","Maximum latency":"7.59"}
+2024-09-26 11:11:24.997 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.003 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110227.txt
+2024-09-26 11:11:25.011 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110257.txt
+2024-09-26 11:11:25.011 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.57","Average latency":"4.34","Maximum latency":"9.46"}
+2024-09-26 11:11:25.012 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.60","Average latency":"1.96","Maximum latency":"2.55"}
+2024-09-26 11:11:25.012 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.31","Average latency":"3.64","Maximum latency":"11.5"}
+2024-09-26 11:11:25.012 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.014 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110247.txt
+2024-09-26 11:11:25.017 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110307.txt
+2024-09-26 11:11:25.017 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.58","Average latency":"3.12","Maximum latency":"3.56"}
+2024-09-26 11:11:25.017 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.37","Average latency":"4.05","Maximum latency":"7.31"}
+2024-09-26 11:11:25.018 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.40","Average latency":"2.56","Maximum latency":"3.50"}
+2024-09-26 11:11:25.018 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.53","Average latency":"2.85","Maximum latency":"4.51"}
+2024-09-26 11:11:25.018 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.018 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110317.txt
+2024-09-26 11:11:25.018 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.25","Average latency":"2.69","Maximum latency":"3.37"}
+2024-09-26 11:11:25.018 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110237.txt
+2024-09-26 11:11:25.019 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.90","Average latency":"2.91","Maximum latency":"6.16"}
+2024-09-26 11:11:25.020 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.99","Average latency":"2.67","Maximum latency":"3.35"}
+2024-09-26 11:11:25.020 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.91","Average latency":"2.75","Maximum latency":"3.14"}
+2024-09-26 11:11:25.021 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.52","Average latency":"2.68","Maximum latency":"3.71"}
+2024-09-26 11:11:25.021 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.021 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110327.txt
+2024-09-26 11:11:25.022 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.33","Average latency":"3.33","Maximum latency":"4.94"}
+2024-09-26 11:11:25.022 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.86","Average latency":"2.36","Maximum latency":"2.86"}
+2024-09-26 11:11:25.022 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.87","Average latency":"2.70","Maximum latency":"3.17"}
+2024-09-26 11:11:25.022 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.46","Average latency":"2.10","Maximum latency":"2.50"}
+2024-09-26 11:11:25.022 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.71","Average latency":"2.12","Maximum latency":"2.51"}
+2024-09-26 11:11:25.022 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.025 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110337.txt
+2024-09-26 11:11:25.027 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.74","Average latency":"3.85","Maximum latency":"6.71"}
+2024-09-26 11:11:25.028 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.64","Average latency":"2.55","Maximum latency":"4.67"}
+2024-09-26 11:11:25.029 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.01","Average latency":"2.49","Maximum latency":"3.55"}
+2024-09-26 11:11:25.031 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.82","Average latency":"2.45","Maximum latency":"3.03"}
+2024-09-26 11:11:25.032 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.59","Average latency":"2.05","Maximum latency":"2.77"}
+2024-09-26 11:11:25.032 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.51","Average latency":"2.66","Maximum latency":"5.48"}
+2024-09-26 11:11:25.032 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.033 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110347.txt
+2024-09-26 11:11:25.033 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.63","Average latency":"6.40","Maximum latency":"9.64"}
+2024-09-26 11:11:25.033 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.63","Average latency":"5.04","Maximum latency":"8.55"}
+2024-09-26 11:11:25.034 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.24","Average latency":"5.61","Maximum latency":"8.47"}
+2024-09-26 11:11:25.034 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.56","Average latency":"7.60","Maximum latency":"13.9"}
+2024-09-26 11:11:25.034 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.56","Average latency":"4.99","Maximum latency":"10.5"}
+2024-09-26 11:11:25.035 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.13","Average latency":"5.71","Maximum latency":"10.3"}
+2024-09-26 11:11:25.036 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.036 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110357.txt
+2024-09-26 11:11:25.036 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.90","Average latency":"3.37","Maximum latency":"8.32"}
+2024-09-26 11:11:25.037 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.84","Average latency":"2.60","Maximum latency":"3.17"}
+2024-09-26 11:11:25.037 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.69","Average latency":"2.06","Maximum latency":"2.99"}
+2024-09-26 11:11:25.037 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.10","Average latency":"3.02","Maximum latency":"4.59"}
+2024-09-26 11:11:25.038 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.91","Average latency":"4.66","Maximum latency":"14.7"}
+2024-09-26 11:11:25.038 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.34","Average latency":"2.37","Maximum latency":"4.61"}
+2024-09-26 11:11:25.038 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.039 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110407.txt
+2024-09-26 11:11:25.039 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"0.87","Average latency":"5.00","Maximum latency":"17.1"}
+2024-09-26 11:11:25.039 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.92","Average latency":"8.49","Maximum latency":"28.7"}
+2024-09-26 11:11:25.040 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.72","Average latency":"5.77","Maximum latency":"18.3"}
+2024-09-26 11:11:25.040 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.64","Average latency":"8.27","Maximum latency":"24.7"}
+2024-09-26 11:11:25.041 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.21","Average latency":"5.87","Maximum latency":"14.4"}
+2024-09-26 11:11:25.041 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.83","Average latency":"2.65","Maximum latency":"4.22"}
+2024-09-26 11:11:25.041 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.041 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110417.txt
+2024-09-26 11:11:25.042 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.07","Average latency":"3.33","Maximum latency":"6.71"}
+2024-09-26 11:11:25.042 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.62","Average latency":"2.29","Maximum latency":"2.98"}
+2024-09-26 11:11:25.042 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.96","Average latency":"2.41","Maximum latency":"3.73"}
+2024-09-26 11:11:25.043 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.56","Average latency":"3.10","Maximum latency":"4.80"}
+2024-09-26 11:11:25.043 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.41","Average latency":"2.15","Maximum latency":"2.46"}
+2024-09-26 11:11:25.043 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.73","Average latency":"2.31","Maximum latency":"3.94"}
+2024-09-26 11:11:25.044 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.044 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110427.txt
+2024-09-26 11:11:25.044 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.25","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.32","Average latency":"4.74","Maximum latency":"6.81"}
+2024-09-26 11:11:25.045 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.30","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.96","Average latency":"3.98","Maximum latency":"5.99"}
+2024-09-26 11:11:25.045 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"0.79","Average latency":"2.11","Maximum latency":"3.95"}
+2024-09-26 11:11:25.045 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.56","Average latency":"2.66","Maximum latency":"5.58"}
+2024-09-26 11:11:25.046 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.21","Average latency":"3.68","Maximum latency":"9.23"}
+2024-09-26 11:11:25.046 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.37","Average latency":"2.83","Maximum latency":"3.14"}
+2024-09-26 11:11:25.046 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.07","Average latency":"3.60","Maximum latency":"8.35"}
+2024-09-26 11:11:25.047 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.31","Average latency":"1.87","Maximum latency":"2.34"}
+2024-09-26 11:11:25.047 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.048 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110437.txt
+2024-09-26 11:11:25.048 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.32","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"4.35","Average latency":"4.77","Maximum latency":"5.47"}
+2024-09-26 11:11:25.049 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.25","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.45","Average latency":"3.82","Maximum latency":"4.15"}
+2024-09-26 11:11:25.052 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.30","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.58","Average latency":"4.13","Maximum latency":"7.81"}
+2024-09-26 11:11:25.052 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"0.96","Average latency":"2.70","Maximum latency":"7.33"}
+2024-09-26 11:11:25.053 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.56","Average latency":"2.52","Maximum latency":"3.91"}
+2024-09-26 11:11:25.053 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.50","Average latency":"1.75","Maximum latency":"2.25"}
+2024-09-26 11:11:25.054 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.52","Average latency":"2.73","Maximum latency":"3.15"}
+2024-09-26 11:11:25.055 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.75","Average latency":"2.00","Maximum latency":"2.41"}
+2024-09-26 11:11:25.058 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.57","Average latency":"1.99","Maximum latency":"2.54"}
+2024-09-26 11:11:25.059 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.065 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110447.txt
+2024-09-26 11:11:25.067 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.32","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"4.96","Average latency":"13.1","Maximum latency":"38.1"}
+2024-09-26 11:11:25.067 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.25","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"5.52","Average latency":"9.28","Maximum latency":"12.6"}
+2024-09-26 11:11:25.068 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.30","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.66","Average latency":"8.31","Maximum latency":"21.3"}
+2024-09-26 11:11:25.069 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.39","Average latency":"1.83","Maximum latency":"2.13"}
+2024-09-26 11:11:25.069 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.27","Average latency":"2.50","Maximum latency":"3.48"}
+2024-09-26 11:11:25.069 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.87","Average latency":"2.84","Maximum latency":"5.41"}
+2024-09-26 11:11:25.070 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.16","Average latency":"3.19","Maximum latency":"3.83"}
+2024-09-26 11:11:25.070 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.50","Average latency":"2.60","Maximum latency":"3.41"}
+2024-09-26 11:11:25.070 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.31","Average latency":"4.39","Maximum latency":"13.6"}
+2024-09-26 11:11:25.071 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.072 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110457.txt
+2024-09-26 11:11:25.073 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.33","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.81","Average latency":"54.0","Maximum latency":"108"}
+2024-09-26 11:11:25.073 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.32","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.14","Average latency":"5.71","Maximum latency":"9.23"}
+2024-09-26 11:11:25.073 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.25","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.51","Average latency":"5.50","Maximum latency":"9.44"}
+2024-09-26 11:11:25.073 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.30","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.78","Average latency":"7.35","Maximum latency":"13.9"}
+2024-09-26 11:11:25.073 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.15","Average latency":"3.24","Maximum latency":"8.96"}
+2024-09-26 11:11:25.073 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.26","Average latency":"2.39","Maximum latency":"5.03"}
+2024-09-26 11:11:25.074 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.37","Average latency":"2.62","Maximum latency":"5.79"}
+2024-09-26 11:11:25.074 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.65","Average latency":"3.83","Maximum latency":"7.67"}
+2024-09-26 11:11:25.074 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.69","Average latency":"3.23","Maximum latency":"7.41"}
+2024-09-26 11:11:25.074 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.54","Average latency":"2.03","Maximum latency":"3.06"}
+2024-09-26 11:11:25.074 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.074 [Thread-2] INFO  com.primary.Main - Received event: filename 20240926_110507.txt
+2024-09-26 11:11:25.075 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.34","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"4.79","Average latency":"24.4","Maximum latency":"69.5"}
+2024-09-26 11:11:25.075 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.33","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"25.2","Average latency":"58.9","Maximum latency":"101"}
+2024-09-26 11:11:25.075 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.32","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"5.25","Average latency":"7.56","Maximum latency":"11.4"}
+2024-09-26 11:11:25.075 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.25","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.74","Average latency":"4.18","Maximum latency":"4.82"}
+2024-09-26 11:11:25.075 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.30","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"3.49","Average latency":"8.44","Maximum latency":"21.6"}
+2024-09-26 11:11:25.075 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.18","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"0.95","Average latency":"1.75","Maximum latency":"3.20"}
+2024-09-26 11:11:25.076 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.16","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.56","Average latency":"1.90","Maximum latency":"2.18"}
+2024-09-26 11:11:25.076 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.15","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.25","Average latency":"2.45","Maximum latency":"2.72"}
+2024-09-26 11:11:25.076 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.10","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"2.12","Average latency":"2.65","Maximum latency":"3.18"}
+2024-09-26 11:11:25.076 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.13","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.45","Average latency":"2.36","Maximum latency":"4.28"}
+2024-09-26 11:11:25.076 [Thread-2] INFO  com.primary.Main - Received event: {"IP":"10.20.40.5","Packets transmitted":"5","Packets received":"5","Packet loss":"0","Minimum latency":"1.88","Average latency":"4.03","Maximum latency":"8.36"}
+2024-09-26 11:11:25.076 [Thread-2] INFO  com.primary.Main - Received event: completed
+2024-09-26 11:11:25.079 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110257.txt
+2024-09-26 11:11:25.080 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110307.txt
+2024-09-26 11:11:25.080 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110317.txt
+2024-09-26 11:11:25.081 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110327.txt
+2024-09-26 11:11:25.081 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110337.txt
+2024-09-26 11:11:25.082 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110347.txt
+2024-09-26 11:11:25.082 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110357.txt
+2024-09-26 11:11:25.083 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110407.txt
+2024-09-26 11:11:25.083 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110417.txt
+2024-09-26 11:11:25.085 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110427.txt
+2024-09-26 11:11:25.085 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110437.txt
+2024-09-26 11:11:25.086 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110447.txt
+2024-09-26 11:11:25.087 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110457.txt
+2024-09-26 11:11:25.087 [vert.x-eventloop-thread-2] INFO  com.primary.Main - Flushed events to file: 20240926_110507.txt

@@ -1,1 +1,0 @@
-{"Packets transmitted":"10","Packets received":"10","Packet loss":"10","Minimum latency":"10","Average latency":"10","Maximum latency":"10","ip":"10.20.40.203","timestamp":"2024-09-25T11:45:10.983734786"}
