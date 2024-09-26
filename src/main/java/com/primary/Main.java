@@ -35,6 +35,7 @@ public class Main
     {
         try
         {
+
             vertx.fileSystem().readFile("config.json").compose(result ->
                     {
                         try
@@ -42,6 +43,8 @@ public class Main
                             JsonObject config = result.toJsonObject();
 
                             applicationType = config.getString("type").toLowerCase();
+
+                            vertx.fileSystem().mkdirsBlocking(BASE_DIR + "/" + applicationType);
 
                             port = config.getInteger("port");
 
