@@ -1,6 +1,6 @@
 {
-    "type": "primary",
+    "type": "secondary",
     "ip": "127.0.0.1",
     "port": 5555,
-    "pingPort": 4444
+    "ping.port": 4444
 }

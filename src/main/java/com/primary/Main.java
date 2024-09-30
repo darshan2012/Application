@@ -5,8 +5,6 @@ import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.file.OpenOptions;
-import io.vertx.core.http.HttpClientRequest;
-import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
@@ -25,7 +23,7 @@ public class Main
 
     public static Integer pingPort;
 
-    public static final String BASE_DIR = System.clearProperty("user.dir") + "/data";
+    public static final String BASE_DIR = System.clearProperty("user.dir") + "/events";
 
     private static String applicationType;
 
@@ -35,7 +33,8 @@ public class Main
     {
         try
         {
-            vertx.fileSystem().readFile("config.json").compose(result ->
+            vertx.fileSystem().readFile("config.json")
+                    .compose(result ->
                     {
                         try
                         {
@@ -47,7 +46,7 @@ public class Main
 
                             port = config.getInteger("port");
 
-                            pingPort = config.getInteger("pingPort");
+                            pingPort = config.getInteger("ping.port");
 
                             logger.info("Configuration loaded: {}", config.encodePrettily());
 
@@ -59,18 +58,15 @@ public class Main
 
                             return Future.failedFuture(exception);
                         }
-                    }).compose(Main::notifyMainServer)
-                    .onComplete(result ->
+                    })
+                    .compose(Main::notifyMainServer)
+                    .compose(result -> sendHeartBeats())
+                    .compose(result -> receiveEvents())
+                    .onFailure(result ->
                     {
-                        if (result.succeeded())
-                        {
-                            startEventReceiver();
-                        }
-                        else
-                        {
-                            logger.error("Failed to notify main server: {}", result.cause().getMessage());
-                        }
+                        logger.error("Failed to Set up Application", result.getCause());
                     });
+
         }
         catch (Exception exception)
         {
@@ -81,155 +77,162 @@ public class Main
     private static Future<Void> notifyMainServer(JsonObject appContext)
     {
         Promise<Void> promise = Promise.promise();
-
-        vertx.createHttpClient().request(HttpMethod.POST, 8080, "localhost", "/register")
-                .onComplete(result ->
-                {
-                    try
+        try
+        {
+            vertx.createHttpClient().request(HttpMethod.POST, 8080, "localhost", "/register")
+                    .onComplete(result ->
                     {
-                        if (result.succeeded())
+                        try
                         {
-                            var request = result.result();
-
-                            request.response().onComplete(requestResult ->
+                            if (result.succeeded())
                             {
-                                if (requestResult.succeeded())
+                                var request = result.result();
+
+                                request.response().onComplete(requestResult ->
                                 {
-                                    var response = requestResult.result();
-
-                                    logger.info("Response status: {}", response.statusCode());
-
-                                    if (response.statusCode() == 200)
+                                    if (requestResult.succeeded())
                                     {
-                                        promise.complete();
+                                        var response = requestResult.result();
+
+                                        logger.info("Response status: {}", response.statusCode());
+
+                                        if (response.statusCode() == 200)
+                                        {
+                                            promise.complete();
+                                        }
+                                        else
+                                        {
+                                            promise.fail("Could not register, status code: " + response.statusCode());
+                                        }
                                     }
                                     else
                                     {
-                                        promise.fail("Could not register, status code: " + response.statusCode());
+                                        logger.error("Failed to get response: {}", requestResult.cause().getMessage());
+
+                                        promise.fail("Could not register");
                                     }
-                                }
-                                else
-                                {
-                                    logger.error("Failed to get response: {}", requestResult.cause().getMessage());
+                                });
 
-                                    promise.fail("Could not register");
-                                }
-                            });
+                                request.putHeader("content-type", "application/json");
 
-                            request.putHeader("content-type", "application/json");
+                                request.idleTimeout(3000);
 
-                            request.idleTimeout(3000);
+                                request.end(appContext.encode());
+                            }
+                            else
+                            {
+                                logger.error("Failed to send request to main server: {}", result.cause().getMessage());
 
-                            request.end(appContext.encode());
+                                promise.fail("Could not register");
+
+                                System.exit(0);
+                            }
                         }
-                        else
+                        catch (Exception exception)
                         {
-                            logger.error("Failed to send request to main server: {}", result.cause().getMessage());
-
-                            promise.fail("Could not register");
+                            logger.error(exception.getMessage(), exception);
                         }
-                    }
-                    catch (Exception exception)
-                    {
-                        logger.error(exception.getMessage(), exception);
-                    }
 
-                });
+                    });
+        }
+        catch (Exception exception)
+        {
+            logger.error(exception.getMessage(), exception);
+        }
         return promise.future();
     }
 
-    private static void startEventReceiver()
+    private static Future<Void> receiveEvents()
     {
-        new Thread(() ->
+        try
         {
-            try
+            new Thread(() ->
             {
-                ZMQ.Socket pullSocket = context.createSocket(SocketType.PULL);
-
-                pullSocket.bind("tcp://*:" + port);
-
-                var eventBuffer = new StringBuilder();
-
-                var fileName = "default.txt";
-
-                logger.info("Started listening on port: {}", port);
-
-                while (!Thread.currentThread().isInterrupted())
+                try
                 {
-                    var event = pullSocket.recvStr();
+                    ZMQ.Socket pullSocket = context.createSocket(SocketType.PULL);
 
-                    if (event != null && !event.isEmpty())
+                    pullSocket.bind("tcp://*:" + port);
+
+                    var eventBuffer = new StringBuilder();
+
+                    var filePath = "default.txt";
+
+                    logger.info("Started listening on port: {}", port);
+
+                    while (!Thread.currentThread().isInterrupted())
                     {
-                        logger.info("Received event: {}", event);
+                        var event = pullSocket.recvStr();
 
-                        var splitEvent = event.split("\\s+", 2);
+                        if (event != null && !event.isEmpty())
+                        {
+                            logger.info("Received event: {}", event);
 
-                        if (splitEvent[0].equals("filename"))
-                        {
-                            fileName = splitEvent[1];
-                        }
-                        else if (event.equals("completed"))
-                        {
-                            writeEvents(fileName, eventBuffer.toString());
+                            var splitEvent = event.split("\\s+", 2);
 
-                            eventBuffer.setLength(0);
-                        }
-                        else
-                        {
-                            eventBuffer.append(event).append("\n");
+                            if (splitEvent[0].equals("filename"))
+                            {
+                                filePath = BASE_DIR + "/" + applicationType + "/" + splitEvent[1];
+
+                                logger.info("filename received {} ", splitEvent[1]);
+
+                                if (!eventBuffer.isEmpty())
+                                {
+                                    writeEvents(filePath, eventBuffer.toString());
+                                }
+
+                                String finalFileName = filePath;
+
+                                vertx.executeBlocking(() ->
+                                {
+                                    if (!vertx.fileSystem().existsBlocking(finalFileName))
+                                        vertx.fileSystem().createFileBlocking(finalFileName);
+
+                                    return Future.succeededFuture();
+                                });
+                            }
+                            else if (event.equals("completed"))
+                            {
+                                writeEvents(filePath, eventBuffer.toString());
+
+                                eventBuffer.setLength(0);
+                            }
+                            else
+                            {
+                                eventBuffer.append(event).append("\n");
+                            }
                         }
                     }
-                }
+                    if (!eventBuffer.isEmpty())
+                    {
+                        writeEvents(filePath, eventBuffer.toString());
+                    }
 
-                if (!eventBuffer.isEmpty())
+                    pullSocket.close();
+
+                }
+                catch (Exception exception)
                 {
-                    writeEvents(fileName, eventBuffer.toString());
+                    logger.error("Error in event receiver: ", exception);
                 }
+            }).start();
 
-                pullSocket.close();
-
-            }
-            catch (Exception exception)
-            {
-                logger.error("Error in event receiver: ", exception);
-            }
-        }).start();
-
-        new Thread(() ->
+            return Future.succeededFuture();
+        }
+        catch (Exception exception)
         {
-            try
-            {
-                var pingSocket = context.createSocket(SocketType.PUSH);
+            logger.error("Error while starting Event receiver", exception);
 
-                pingSocket.bind("tcp://*:" + pingPort);
-
-                while (!Thread.currentThread().isInterrupted())
-                {
-                    try
-                    {
-                        pingSocket.send("pong");
-
-                        Thread.sleep(3000);
-                    }
-                    catch (Exception exception)
-                    {
-                        logger.error("Error while sending pong :", exception);
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                logger.error("Error in ping-pong thread: ", exception);
-            }
-        }).start();
+            return Future.failedFuture(exception);
+        }
     }
 
-    private static void writeEvents(String fileName, String eventsBatch)
+    private static void writeEvents(String filePath, String eventsBatch)
     {
         vertx.executeBlocking(() ->
         {
             vertx.fileSystem()
-                    .open(BASE_DIR + "/" + applicationType + "/" + fileName,
+                    .open(filePath,
                             new OpenOptions().setCreate(true).setAppend(true))
                     .onComplete(result ->
                     {
@@ -244,7 +247,7 @@ public class Main
                                         {
                                             if (writeResult.succeeded())
                                             {
-                                                logger.info("Flushed events to file: {}", fileName);
+                                                logger.info("Flushed events to file: {}", filePath);
 
                                                 file.close();
                                             }
@@ -263,10 +266,50 @@ public class Main
                         {
                             logger.error(exception.getMessage(), exception);
                         }
-
                     });
             return Future.succeededFuture();
         });
+    }
 
+    private static Future<Void> sendHeartBeats()
+    {
+        try
+        {
+            new Thread(() ->
+            {
+                try
+                {
+                    var pingSocket = context.createSocket(SocketType.PUSH);
+
+                    pingSocket.bind("tcp://*:" + pingPort);
+
+                    while (!Thread.currentThread().isInterrupted())
+                    {
+                        try
+                        {
+                            pingSocket.send("I am alive");
+
+                            Thread.sleep(3000);
+                        }
+                        catch (Exception exception)
+                        {
+                            logger.error("Error while sending pong :", exception);
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    logger.error("Error in ping-pong thread: ", exception);
+                }
+            }).start();
+
+            return Future.succeededFuture();
+        }
+        catch (Exception exception)
+        {
+            logger.error("Error while starting Heartbeat sender", exception);
+
+            return Future.failedFuture(exception);
+        }
     }
 }
