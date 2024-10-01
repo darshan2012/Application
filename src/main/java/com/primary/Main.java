@@ -62,10 +62,7 @@ public class Main
                     .compose(Main::notifyMainServer)
                     .compose(result -> sendHeartBeats())
                     .compose(result -> receiveEvents())
-                    .onFailure(result ->
-                    {
-                        logger.error("Failed to Set up Application", result.getCause());
-                    });
+                    .onFailure(result -> logger.error("Failed to Set up Application", result.getCause()));
 
         }
         catch (Exception exception)
@@ -179,6 +176,8 @@ public class Main
                                 if (!eventBuffer.isEmpty())
                                 {
                                     writeEvents(filePath, eventBuffer.toString());
+
+                                    eventBuffer.setLength(0);
                                 }
 
                                 String finalFileName = filePath;
@@ -206,6 +205,8 @@ public class Main
                     if (!eventBuffer.isEmpty())
                     {
                         writeEvents(filePath, eventBuffer.toString());
+
+                        eventBuffer.setLength(0);
                     }
 
                     pullSocket.close();
