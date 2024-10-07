@@ -1,6 +1,6 @@
 {
     "type": "primary",
     "ip": "127.0.0.1",
-    "port": 5555,
+    "port": 8080,
     "ping.port": 4444
 }

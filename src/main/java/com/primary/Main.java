@@ -1,5 +1,7 @@
 package com.primary;
 
+import com.primary.client.HTTPClient;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -19,9 +21,13 @@ public class Main
 
     public static Vertx vertx = Vertx.vertx();
 
+    public static String ip;
+
     public static Integer port;
 
     public static Integer pingPort;
+
+    public static JsonObject applicationContext;
 
     public static final String BASE_DIR = System.clearProperty("user.dir") + "/events";
 
@@ -48,6 +54,8 @@ public class Main
 
                             pingPort = config.getInteger("ping.port");
 
+                            applicationContext = config;
+
                             logger.info("Configuration loaded: {}", config.encodePrettily());
 
                             return Future.succeededFuture(config);
@@ -59,84 +67,31 @@ public class Main
                             return Future.failedFuture(exception);
                         }
                     })
-                    .compose(Main::notifyMainServer)
+                    .compose(result -> vertx.deployVerticle(new HTTPClient()))
+                    .compose(result -> vertx.eventBus()
+                            .<JsonObject>request(Constants.HTTP_REQUEST, applicationContext.put("endpoint", "/register")))
+                    .compose(result ->
+                    {
+                        port = result.body().getInteger("port");
+
+                        ip = result.body().getString("ip");
+
+                        return Future.succeededFuture();
+                    })
                     .compose(result -> sendHeartBeats())
                     .compose(result -> receiveEvents())
-                    .onFailure(result -> logger.error("Failed to Set up Application", result.getCause()));
-
-        }
-        catch (Exception exception)
-        {
-            logger.error(exception.getMessage(), exception);
-        }
-    }
-
-    private static Future<Void> notifyMainServer(JsonObject appContext)
-    {
-        Promise<Void> promise = Promise.promise();
-        try
-        {
-            vertx.createHttpClient().request(HttpMethod.POST, 8080, "localhost", "/register")
-                    .onComplete(result ->
+                    .onFailure(result ->
                     {
-                        try
-                        {
-                            if (result.succeeded())
-                            {
-                                var request = result.result();
+                        logger.error("Failed to Set up Application", result.getCause());
 
-                                request.response().onComplete(requestResult ->
-                                {
-                                    if (requestResult.succeeded())
-                                    {
-                                        var response = requestResult.result();
-
-                                        logger.info("Response status: {}", response.statusCode());
-
-                                        if (response.statusCode() == 200)
-                                        {
-                                            promise.complete();
-                                        }
-                                        else
-                                        {
-                                            promise.fail("Could not register, status code: " + response.statusCode());
-                                        }
-                                    }
-                                    else
-                                    {
-                                        logger.error("Failed to get response: {}", requestResult.cause().getMessage());
-
-                                        promise.fail("Could not register");
-                                    }
-                                });
-
-                                request.putHeader("content-type", "application/json");
-
-                                request.idleTimeout(3000);
-
-                                request.end(appContext.encode());
-                            }
-                            else
-                            {
-                                logger.error("Failed to send request to main server: {}", result.cause().getMessage());
-
-                                promise.fail("Could not register");
-
-                                System.exit(0);
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            logger.error(exception.getMessage(), exception);
-                        }
-
+                        vertx.close();
                     });
+
         }
         catch (Exception exception)
         {
             logger.error(exception.getMessage(), exception);
         }
-        return promise.future();
     }
 
     private static Future<Void> receiveEvents()
@@ -147,9 +102,11 @@ public class Main
             {
                 try
                 {
-                    ZMQ.Socket pullSocket = context.createSocket(SocketType.PULL);
+                    ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
 
-                    pullSocket.bind("tcp://*:" + port);
+                    subscriber.connect("tcp://" + ip + ":" + port);
+
+                    subscriber.subscribe(applicationType);
 
                     var eventBuffer = new StringBuilder();
 
@@ -159,7 +116,7 @@ public class Main
 
                     while (!Thread.currentThread().isInterrupted())
                     {
-                        var event = pullSocket.recvStr();
+                        var event = subscriber.recvStr();
 
                         if (event != null && !event.isEmpty())
                         {
@@ -167,11 +124,16 @@ public class Main
 
                             var splitEvent = event.split("\\s+", 2);
 
-                            if (splitEvent[0].equals("filename"))
+                            if (splitEvent.length < 2)
                             {
-                                filePath = BASE_DIR + "/" + applicationType + "/" + splitEvent[1];
+                                continue;
+                            }
 
-                                logger.info("filename received {} ", splitEvent[1]);
+                            if (splitEvent[1].startsWith("filename"))
+                            {
+                                filePath = BASE_DIR + "/" + applicationType + "/" + splitEvent[1].split("\\s+", 2)[1];
+
+                                logger.info("filename received {} ", filePath);
 
                                 if (!eventBuffer.isEmpty())
                                 {
@@ -190,7 +152,7 @@ public class Main
                                     return Future.succeededFuture();
                                 });
                             }
-                            else if (event.equals("completed"))
+                            else if (splitEvent[1].startsWith("completed"))
                             {
                                 writeEvents(filePath, eventBuffer.toString());
 
@@ -198,7 +160,7 @@ public class Main
                             }
                             else
                             {
-                                eventBuffer.append(event).append("\n");
+                                eventBuffer.append(splitEvent[1]).append("\n");
                             }
                         }
                     }
@@ -209,7 +171,7 @@ public class Main
                         eventBuffer.setLength(0);
                     }
 
-                    pullSocket.close();
+                    subscriber.close();
 
                 }
                 catch (Exception exception)
@@ -288,7 +250,7 @@ public class Main
                     {
                         try
                         {
-                            pingSocket.send("I am alive");
+                            pingSocket.send("I am alive", ZMQ.DONTWAIT);
 
                             Thread.sleep(3000);
                         }
